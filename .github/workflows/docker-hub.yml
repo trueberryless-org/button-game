@@ -44,7 +44,7 @@ jobs:
       - name: read_json
         if: ${{ env.FILE_EXISTS == 'true' }}
         id: version
-        uses: zoexx/github-action-json-file-properties@release
+        uses: zoexx/github-action-json-file-properties@1.0.6
         with:
           file_path: ".github/artifacts/version.json"
           
