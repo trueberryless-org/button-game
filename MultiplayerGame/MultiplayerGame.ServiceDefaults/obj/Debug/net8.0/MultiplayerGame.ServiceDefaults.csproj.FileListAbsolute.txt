@@ -1,0 +1,13 @@
+D:\repos\school\202324_sew_5ahit_felixschneider\MultiplayerGame\MultiplayerGame\MultiplayerGame.ServiceDefaults\bin\Debug\net8.0\MultiplayerGame.ServiceDefaults.deps.json
+D:\repos\school\202324_sew_5ahit_felixschneider\MultiplayerGame\MultiplayerGame\MultiplayerGame.ServiceDefaults\bin\Debug\net8.0\MultiplayerGame.ServiceDefaults.dll
+D:\repos\school\202324_sew_5ahit_felixschneider\MultiplayerGame\MultiplayerGame\MultiplayerGame.ServiceDefaults\bin\Debug\net8.0\MultiplayerGame.ServiceDefaults.pdb
+D:\repos\school\202324_sew_5ahit_felixschneider\MultiplayerGame\MultiplayerGame\MultiplayerGame.ServiceDefaults\obj\Debug\net8.0\MultiplayerGame.ServiceDefaults.csproj.AssemblyReference.cache
+D:\repos\school\202324_sew_5ahit_felixschneider\MultiplayerGame\MultiplayerGame\MultiplayerGame.ServiceDefaults\obj\Debug\net8.0\MultiplayerGame.ServiceDefaults.GeneratedMSBuildEditorConfig.editorconfig
+D:\repos\school\202324_sew_5ahit_felixschneider\MultiplayerGame\MultiplayerGame\MultiplayerGame.ServiceDefaults\obj\Debug\net8.0\MultiplayerGame.ServiceDefaults.AssemblyInfoInputs.cache
+D:\repos\school\202324_sew_5ahit_felixschneider\MultiplayerGame\MultiplayerGame\MultiplayerGame.ServiceDefaults\obj\Debug\net8.0\MultiplayerGame.ServiceDefaults.AssemblyInfo.cs
+D:\repos\school\202324_sew_5ahit_felixschneider\MultiplayerGame\MultiplayerGame\MultiplayerGame.ServiceDefaults\obj\Debug\net8.0\MultiplayerGame.ServiceDefaults.csproj.CoreCompileInputs.cache
+D:\repos\school\202324_sew_5ahit_felixschneider\MultiplayerGame\MultiplayerGame\MultiplayerGame.ServiceDefaults\obj\Debug\net8.0\MultiplayerGame.ServiceDefaults.sourcelink.json
+D:\repos\school\202324_sew_5ahit_felixschneider\MultiplayerGame\MultiplayerGame\MultiplayerGame.ServiceDefaults\obj\Debug\net8.0\MultiplayerGame.ServiceDefaults.dll
+D:\repos\school\202324_sew_5ahit_felixschneider\MultiplayerGame\MultiplayerGame\MultiplayerGame.ServiceDefaults\obj\Debug\net8.0\refint\MultiplayerGame.ServiceDefaults.dll
+D:\repos\school\202324_sew_5ahit_felixschneider\MultiplayerGame\MultiplayerGame\MultiplayerGame.ServiceDefaults\obj\Debug\net8.0\MultiplayerGame.ServiceDefaults.pdb
+D:\repos\school\202324_sew_5ahit_felixschneider\MultiplayerGame\MultiplayerGame\MultiplayerGame.ServiceDefaults\obj\Debug\net8.0\ref\MultiplayerGame.ServiceDefaults.dll
