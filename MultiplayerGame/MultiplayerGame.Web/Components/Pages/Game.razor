@@ -25,13 +25,13 @@
                         <div style="width: 2rem; height: 40rem; border-radius: 1000000px; background-color: #023047; user-select: none"></div>
                     </div>
                     <div style="display: flex; justify-content: space-between; position: relative">
-                        <button @onclick="ClickCircleOne" style="width: @(_game.Status.PlayerOneCircleSize)rem; height: 40rem; border-radius: 1000000px; background-color: #ffb703; display: flex; justify-content: center; align-items: center; font-family: 'Bauhaus 93'; font-size: 4rem; color: black;">
+                        <button @onclick="ClickCircleOne" style="width: @(_game.Status.PlayerOneCircleSize)rem; height: 40rem; border-radius: 1000000px; background-color: #ffb703; display: flex; justify-content: center; align-items: center; font-family: 'Bauhaus 93', sans-serif; font-size: 4rem; color: black;">
                             @if (_game.PlayerOne == _playerGuid && _game.Status.PlayerOneCircleSize > 20)
                             {
                                 <p>Click</p>
                             }
                         </button>
-                        <button @onclick="ClickCircleTwo" style="width: @(_game.Status.PlayerTwoCircleSize)rem; height: 40rem; border-radius: 1000000px; background-color: #219ebc; display: flex; justify-content: center; align-items: center; font-family: 'Bauhaus 93'; font-size: 4rem; color: white;">
+                        <button @onclick="ClickCircleTwo" style="width: @(_game.Status.PlayerTwoCircleSize)rem; height: 40rem; border-radius: 1000000px; background-color: #219ebc; display: flex; justify-content: center; align-items: center; font-family: 'Bauhaus 93', sans-serif; font-size: 4rem; color: white;">
                             @if (_game.PlayerTwo == _playerGuid && _game.Status.PlayerTwoCircleSize > 20)
                             {
                                 <p>Click</p>
@@ -56,7 +56,7 @@
 
             @if (_game.Status.Created.AddSeconds(3) > DateTime.Now)
             {
-                <div style="position: absolute; inset: 0; backdrop-filter: brightness(20%) blur(6px); z-index: 100000; display: flex; justify-content: center; align-items: center; font-family: 'Bauhaus 93'; font-size: 20rem; color: white; user-select: none">
+                <div style="position: absolute; inset: 0; backdrop-filter: brightness(20%) blur(6px); z-index: 100000; display: flex; justify-content: center; align-items: center; font-family: 'Bauhaus 93', sans-serif; font-size: 20rem; color: white; user-select: none">
                     @(((_game.Status.Created.AddSeconds(3) - DateTime.Now).TotalSeconds).ToString("N2"))
                 </div>
             }
