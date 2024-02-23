@@ -122,6 +122,10 @@
             "Aspire.Hosting": {
               "target": "Package",
               "version": "[8.0.0-preview.2.23619.3, )"
+            },
+            "Aspire.MongoDB.Driver": {
+              "target": "Package",
+              "version": "[8.0.0-preview.3.24105.21, )"
             }
           },
           "imports": [
@@ -285,6 +289,12 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Aspire.MongoDB.Driver": {
+              "target": "Package",
+              "version": "[8.0.0-preview.3.24105.21, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

@@ -1,6 +1,7 @@
 using MultiplayerGame.Web;
 using MultiplayerGame.Web.Components;
 using MultiplayerGame.Web.Components.Services;
+using MultiplayerGame.Web.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,10 @@ builder.Services.AddHttpClient<WeatherApiClient>(client => client.BaseAddress = 
 
 builder.Services.AddSingleton<Matchmaking>();
 builder.Services.AddSingleton<MatchmakingChat>();
+
+builder.AddMongoDBClient("mongodb");
+
+builder.Services.AddScoped<IMongoRepository<Player>, MongoRepository<Player>>();
 
 var app = builder.Build();
 

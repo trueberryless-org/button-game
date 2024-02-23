@@ -21,6 +21,8 @@
     <Import Project="$(NuGetPackageRoot)aspire.hosting\8.0.0-preview.2.23619.3\buildTransitive\Aspire.Hosting.props" Condition="Exists('$(NuGetPackageRoot)aspire.hosting\8.0.0-preview.2.23619.3\buildTransitive\Aspire.Hosting.props')" />
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <PkgAWSSDK_Core Condition=" '$(PkgAWSSDK_Core)' == '' ">C:\Users\trueb\.nuget\packages\awssdk.core\3.7.100.14</PkgAWSSDK_Core>
+    <PkgAWSSDK_SecurityToken Condition=" '$(PkgAWSSDK_SecurityToken)' == '' ">C:\Users\trueb\.nuget\packages\awssdk.securitytoken\3.7.100.14</PkgAWSSDK_SecurityToken>
     <PkgGrpc_Tools Condition=" '$(PkgGrpc_Tools)' == '' ">C:\Users\trueb\.nuget\packages\grpc.tools\2.59.0</PkgGrpc_Tools>
   </PropertyGroup>
 </Project>
