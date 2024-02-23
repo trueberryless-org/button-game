@@ -1,0 +1,60 @@
+{
+  "resources": {
+    "apiservice": {
+      "type": "project.v0",
+      "path": "../MultiplayerGame.ApiService/MultiplayerGame.ApiService.csproj",
+      "env": {
+        "OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EXCEPTION_LOG_ATTRIBUTES": "true",
+        "OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EVENT_LOG_ATTRIBUTES": "true"
+      },
+      "bindings": {
+        "http": {
+          "scheme": "http",
+          "protocol": "tcp",
+          "transport": "http"
+        },
+        "https": {
+          "scheme": "https",
+          "protocol": "tcp",
+          "transport": "http"
+        }
+      }
+    },
+    "mongodb": {
+      "type": "container.v0",
+      "image": "mongo:latest",
+      "bindings": {
+        "tcp": {
+          "scheme": "tcp",
+          "protocol": "tcp",
+          "transport": "tcp",
+          "containerPort": 27017
+        }
+      },
+      "connectionString": "{mongodb.bindings.tcp.host}:{mongodb.bindings.tcp.port}"
+    },
+    "webfrontend": {
+      "type": "project.v0",
+      "path": "../MultiplayerGame.Web/MultiplayerGame.Web.csproj",
+      "env": {
+        "OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EXCEPTION_LOG_ATTRIBUTES": "true",
+        "OTEL_DOTNET_EXPERIMENTAL_OTLP_EMIT_EVENT_LOG_ATTRIBUTES": "true",
+        "ConnectionStrings__mongodb": "{mongodb.connectionString}",
+        "services__apiservice__0": "{apiservice.bindings.http.url}",
+        "services__apiservice__1": "{apiservice.bindings.https.url}"
+      },
+      "bindings": {
+        "http": {
+          "scheme": "http",
+          "protocol": "tcp",
+          "transport": "http"
+        },
+        "https": {
+          "scheme": "https",
+          "protocol": "tcp",
+          "transport": "http"
+        }
+      }
+    }
+  }
+}

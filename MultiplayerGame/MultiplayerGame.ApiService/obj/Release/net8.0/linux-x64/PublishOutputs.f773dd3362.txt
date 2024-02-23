@@ -1,0 +1,5 @@
+D:\repos\school\202324_sew_5ahit_felixschneider\MultiplayerGame\MultiplayerGame\MultiplayerGame.ApiService\bin\Release\net8.0\linux-x64\publish\appsettings.Development.json
+D:\repos\school\202324_sew_5ahit_felixschneider\MultiplayerGame\MultiplayerGame\MultiplayerGame.ApiService\bin\Release\net8.0\linux-x64\publish\appsettings.json
+D:\repos\school\202324_sew_5ahit_felixschneider\MultiplayerGame\MultiplayerGame\MultiplayerGame.ApiService\bin\Release\net8.0\linux-x64\publish\MultiplayerGame.ApiService.pdb
+D:\repos\school\202324_sew_5ahit_felixschneider\MultiplayerGame\MultiplayerGame\MultiplayerGame.ApiService\bin\Release\net8.0\linux-x64\publish\MultiplayerGame.ServiceDefaults.pdb
+D:\repos\school\202324_sew_5ahit_felixschneider\MultiplayerGame\MultiplayerGame\MultiplayerGame.ApiService\bin\Release\net8.0\linux-x64\publish\MultiplayerGame.ApiService

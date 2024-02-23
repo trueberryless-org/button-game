@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "QRspRaO76Fh/+2DjdNsSLdVF3ASECGrYHHgw9ciu3uM=",
+  "Source": "MultiplayerGame.ApiService",
+  "BasePath": "_content/MultiplayerGame.ApiService",
+  "Mode": "Default",
+  "ManifestType": "Publish",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

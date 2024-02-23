@@ -1,0 +1,6 @@
+D:\repos\school\202324_sew_5ahit_felixschneider\MultiplayerGame\MultiplayerGame\MultiplayerGame.Web\bin\Release\net8.0\linux-x64\publish\appsettings.Development.json
+D:\repos\school\202324_sew_5ahit_felixschneider\MultiplayerGame\MultiplayerGame\MultiplayerGame.Web\bin\Release\net8.0\linux-x64\publish\appsettings.json
+D:\repos\school\202324_sew_5ahit_felixschneider\MultiplayerGame\MultiplayerGame\MultiplayerGame.Web\bin\Release\net8.0\linux-x64\publish\MultiplayerGame.Web.pdb
+D:\repos\school\202324_sew_5ahit_felixschneider\MultiplayerGame\MultiplayerGame\MultiplayerGame.Web\bin\Release\net8.0\linux-x64\publish\libmongocrypt.so
+D:\repos\school\202324_sew_5ahit_felixschneider\MultiplayerGame\MultiplayerGame\MultiplayerGame.Web\bin\Release\net8.0\linux-x64\publish\MultiplayerGame.ServiceDefaults.pdb
+D:\repos\school\202324_sew_5ahit_felixschneider\MultiplayerGame\MultiplayerGame\MultiplayerGame.Web\bin\Release\net8.0\linux-x64\publish\MultiplayerGame.Web
