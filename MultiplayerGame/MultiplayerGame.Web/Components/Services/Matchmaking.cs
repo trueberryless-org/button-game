@@ -4,13 +4,11 @@ namespace MultiplayerGame.Web.Components.Services;
 
 public class Matchmaking
 {
-    private List<GameController> Games { get; set; } = [];
+    public List<GameController> Games { get; set; } = [];
 
-    public Tuple<Guid, Guid> JoinGame()
+    public Guid JoinGame(Guid playerId)
     {
         var emptyGame = Games.FirstOrDefault(t => t.PlayerOne == Guid.Empty || t.PlayerTwo == Guid.Empty);
-
-        var playerId = Guid.NewGuid();
 
         if (emptyGame != null)
         {
@@ -23,13 +21,13 @@ public class Matchmaking
                 emptyGame.PlayerTwo = playerId;
             }
 
-            return new Tuple<Guid, Guid>(emptyGame.GameId, playerId);
+            return emptyGame.GameId;
         }
         else
         {
             emptyGame = new GameController(playerId, Guid.Empty);
             Games.Add(emptyGame);
-            return new Tuple<Guid, Guid>(emptyGame.GameId, playerId);
+            return emptyGame.GameId;
         }
     }
 

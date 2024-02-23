@@ -1,6 +1,9 @@
 ﻿@page "/game/{GameGuidString}/{PlayerGuidString}"
 @using MultiplayerGame.Web.Components.Services
+@using MultiplayerGame.Web.Model
+@using MultiplayerGame.Web.Repositories
 @inject Matchmaking Matchmaking
+@inject IMongoRepository<Player> MongoRepository
 @rendermode InteractiveServer
 
 <div class="p-4">
@@ -25,13 +28,13 @@
                         <div style="width: 2rem; height: 40rem; border-radius: 1000000px; background-color: #023047; user-select: none"></div>
                     </div>
                     <div style="display: flex; justify-content: space-between; position: relative">
-                        <button @onclick="ClickCircleOne" style="width: @(_game.Status.PlayerOneCircleSize)rem; height: 40rem; border-radius: 1000000px; background-color: #ffb703; display: flex; justify-content: center; align-items: center; font-family: 'Bauhaus 93', sans-serif; font-size: 4rem; color: black;">
+                        <button @onclick="async () => await ClickCircleOne()" style="width: @(_game.Status.PlayerOneCircleSize)rem; height: 40rem; border-radius: 1000000px; background-color: #ffb703; display: flex; justify-content: center; align-items: center; font-family: 'Bauhaus 93', sans-serif; font-size: 4rem; color: black;">
                             @if (_game.PlayerOne == _playerGuid && _game.Status.PlayerOneCircleSize > 20)
                             {
                                 <p>Click</p>
                             }
                         </button>
-                        <button @onclick="ClickCircleTwo" style="width: @(_game.Status.PlayerTwoCircleSize)rem; height: 40rem; border-radius: 1000000px; background-color: #219ebc; display: flex; justify-content: center; align-items: center; font-family: 'Bauhaus 93', sans-serif; font-size: 4rem; color: white;">
+                        <button @onclick="async () => await ClickCircleTwo()" style="width: @(_game.Status.PlayerTwoCircleSize)rem; height: 40rem; border-radius: 1000000px; background-color: #219ebc; display: flex; justify-content: center; align-items: center; font-family: 'Bauhaus 93', sans-serif; font-size: 4rem; color: white;">
                             @if (_game.PlayerTwo == _playerGuid && _game.Status.PlayerTwoCircleSize > 20)
                             {
                                 <p>Click</p>
@@ -94,7 +97,7 @@
         await InvokeAsync(() => StateHasChanged());
     }
 
-    private void ClickCircleOne()
+    private async Task ClickCircleOne()
     {
         if (_game == null) return;
 
@@ -104,6 +107,10 @@
             if (_game.Status.PlayerOneCircleSize <= 2)
             {
                 _game.Status.PlayerOneWon = true;
+                var player = await MongoRepository.ReadAsync(_game.PlayerOne);
+                if (player == null) return;
+                player.Points += (int)Math.Min(Math.Round(1000000 / _game.Status.PlayerTwoCircleSize / (player.Points == 0 ? 100 : player.Points)), 1000);
+                await MongoRepository.UpdateAsync(player.Id, player);
             }
         }
         else
@@ -112,7 +119,7 @@
         }
     }
 
-    private void ClickCircleTwo()
+    private async Task ClickCircleTwo()
     {
         if (_game == null) return;
 
@@ -126,6 +133,10 @@
             if (_game.Status.PlayerTwoCircleSize <= 2)
             {
                 _game.Status.PlayerOneWon = false;
+                var player = await MongoRepository.ReadAsync(_game.PlayerTwo);
+                if (player == null) return;
+                player.Points += (int)Math.Min(Math.Round(1000000 / _game.Status.PlayerOneCircleSize / (player.Points == 0 ? 100 : player.Points)), 1000);
+                await MongoRepository.UpdateAsync(player.Id, player);
             }
         }
     }
@@ -140,4 +151,3 @@
     }
 
 }
-

@@ -1,6 +1,7 @@
 using MultiplayerGame.Web;
 using MultiplayerGame.Web.Components;
 using MultiplayerGame.Web.Components.Services;
+using MultiplayerGame.Web.Model;
 using MultiplayerGame.Web.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);

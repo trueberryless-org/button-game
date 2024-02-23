@@ -1,7 +1,10 @@
 ﻿@page "/"
 @using MultiplayerGame.Web.Components.Services
+@using MultiplayerGame.Web.Model
+@using MultiplayerGame.Web.Repositories
 @inject Matchmaking Matchmaking
 @inject NavigationManager NavigationManager
+@inject IMongoRepository<Player> MongoRepository
 @rendermode InteractiveServer
 
 <PageTitle>Home</PageTitle>
@@ -9,15 +12,25 @@
 <div class="p-4">
     <h1>Hello, world!</h1>
 
-    <button @onclick="JoinGame">Play Game!</button>
+    <label for="name">Name:</label>
+    <input id="name" @bind="name"/>
+
+    <button @onclick="async () => await JoinGame()" disabled="@(!IsValid)">Play Game!</button>
 </div>
 
 @code {
+    private string name;
+    private bool IsValid => !string.IsNullOrEmpty(name);
 
-    void JoinGame()
+    async Task JoinGame()
     {
-        var (gameGuid, playerGuid) = Matchmaking.JoinGame();
-        NavigationManager.NavigateTo($"game/{gameGuid}/{playerGuid}");
+        if (!IsValid) return;
+        var players = await MongoRepository.ReadAllAsync();
+        if (players.Find(p => p.Name == name) == null)
+            await MongoRepository.CreateAsync(new Player() { Name = name, Points = 0 });
+        var playerId = (await MongoRepository.ReadAsync(p => p.Name == name))[0].Id;
+        var gameGuid = Matchmaking.JoinGame(playerId);
+        NavigationManager.NavigateTo($"game/{gameGuid}/{playerId}");
     }
 
 }

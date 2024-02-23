@@ -1131,6 +1131,7 @@
       },
       "MultiplayerGame.Web/1.0.0": {
         "dependencies": {
+          "Aspire.MongoDB.Driver": "8.0.0-preview.3.24105.21",
           "MultiplayerGame.ServiceDefaults": "1.0.0"
         },
         "runtime": {

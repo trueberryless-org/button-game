@@ -1,0 +1,84 @@
+﻿@page "/game/{GameGuidString}"
+@using MultiplayerGame.Web.Components.Services
+@using MultiplayerGame.Web.Model
+@using MultiplayerGame.Web.Repositories
+@inject Matchmaking Matchmaking
+@inject IMongoRepository<Player> MongoRepository
+@rendermode InteractiveServer
+
+<div class="p-4">
+    @if (_game != null)
+    {
+        <PageTitle>Spectator</PageTitle>
+
+        @if (_game.PlayersReady())
+        {
+            @if (_game.Status.PlayerOneWon == null)
+            {
+                <div style="position: relative; margin-top: 8rem">
+                    <div style="display: flex; justify-content: space-between; position: absolute; inset: 0; user-select: none">
+                        <div style="width: 2rem; height: 40rem; border-radius: 1000000px; background-color: #fb8500; user-select: none"></div>
+                        <div style="width: 2rem; height: 40rem; border-radius: 1000000px; background-color: #023047; user-select: none"></div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; position: relative">
+                        <button style="width: @(_game.Status.PlayerOneCircleSize)rem; height: 40rem; border-radius: 1000000px; background-color: #ffb703; display: flex; justify-content: center; align-items: center; font-family: 'Bauhaus 93', sans-serif; font-size: 4rem; color: black;">
+                            @if (_game.Status.PlayerOneCircleSize > 20)
+                            {
+                                <p>Player 1</p>
+                            }
+                        </button>
+                        <button style="width: @(_game.Status.PlayerTwoCircleSize)rem; height: 40rem; border-radius: 1000000px; background-color: #219ebc; display: flex; justify-content: center; align-items: center; font-family: 'Bauhaus 93', sans-serif; font-size: 4rem; color: white;">
+                            @if (_game.Status.PlayerTwoCircleSize > 20)
+                            {
+                                <p>Player 2</p>
+                            }
+                        </button>
+                    </div>
+                </div>
+            }
+            else if (_game.Status.PlayerOneWon == true)
+            {
+                <p>Player One Won!</p>
+            }
+            else if (_game.Status.PlayerOneWon == false)
+            {
+                <p>Player Two Won!</p>
+            }
+
+
+            @if (_game.Status.Created.AddSeconds(3) > DateTime.Now)
+            {
+                <div style="position: absolute; inset: 0; backdrop-filter: brightness(20%) blur(6px); z-index: 100000; display: flex; justify-content: center; align-items: center; font-family: 'Bauhaus 93', sans-serif; font-size: 20rem; color: white; user-select: none">
+                    @(((_game.Status.Created.AddSeconds(3) - DateTime.Now).TotalSeconds).ToString("N2"))
+                </div>
+            }
+        }
+        else
+        {
+            <p>Waiting for the Player 2...</p>
+        }
+    }
+    else
+    {
+        <p>This game has unfortunately been deleted...</p>
+    }
+</div>
+
+
+@code {
+    [Parameter] public string GameGuidString { get; set; }
+
+    private GameController? _game;
+
+    protected override void OnParametersSet()
+    {
+        _game = Matchmaking.Game(Guid.Parse(GameGuidString));
+        if (_game != null) _game.UpdateClients += HandleUpdateClients;
+    }
+
+    private async void HandleUpdateClients(object sender, EventArgs e)
+    {
+        await InvokeAsync(() => StateHasChanged());
+    }
+
+}

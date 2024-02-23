@@ -1,0 +1,75 @@
+﻿@page "/currentGames"
+@using MultiplayerGame.Web.Components.Services
+@using MultiplayerGame.Web.Model
+@using MultiplayerGame.Web.Repositories
+@inject Matchmaking Matchmaking
+@inject NavigationManager NavigationManager
+@inject IMongoRepository<Player> MongoRepository
+@rendermode InteractiveServer
+
+<div class="p-4">
+    <h3>Current Games</h3>
+
+    @if (Games != null)
+    {
+        <table id="scoreboard">
+            <thead>
+            <tr>
+                <th>GUID</th>
+                <th>Player One (smaller == better)</th>
+                <th>Player Two (smaller == better)</th>
+                <th>Created</th>
+                <th>Link</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var game in Games)
+            {
+                <tr>
+                    <td>@game.GameId</td>
+                    <td>@game.Status.PlayerOneCircleSize</td>
+                    <td>@game.Status.PlayerTwoCircleSize</td>
+                    <td>@game.Status.Created</td>
+                    <td><a href="game/@game.GameId">Watch game --></a></td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+</div>
+
+
+@code {
+    List<GameController> Games { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Games = Matchmaking.Games.Where(g => g.Status.PlayerOneWon == null).ToList();
+    }
+
+}
+
+<style>
+#scoreboard {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#scoreboard td, #scoreboard th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#scoreboard tr:nth-child(even){background-color: #f2f2f2;}
+
+#scoreboard tr:hover {background-color: #ddd;}
+
+#scoreboard th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
+</style>

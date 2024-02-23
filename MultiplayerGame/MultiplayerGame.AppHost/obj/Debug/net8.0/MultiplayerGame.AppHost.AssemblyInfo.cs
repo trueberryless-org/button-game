@@ -21,7 +21,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MultiplayerGame.AppHost")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f8ac2a1c965a9f388952a118baf47aae0ea9055a")]
 [assembly: System.Reflection.AssemblyProductAttribute("MultiplayerGame.AppHost")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MultiplayerGame.AppHost")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
