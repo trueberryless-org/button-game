@@ -4,6 +4,7 @@
 @using MultiplayerGame.Web.Repositories
 @inject Matchmaking Matchmaking
 @inject IMongoRepository<Player> MongoRepository
+@implements IDisposable
 @rendermode InteractiveServer
 
 <div class="p-4">
@@ -82,19 +83,34 @@
 
     private Guid _playerGuid;
     private GameController? _game;
+    private Timer? botCircleOne;
+    private Timer? botCircleTwo;
 
-    protected override void OnParametersSet()
+    protected override async Task OnParametersSetAsync()
     {
         _game = Matchmaking.Game(Guid.Parse(GameGuidString));
         _playerGuid = Guid.Parse(PlayerGuidString);
-        if (_game != null) _game.Status.Created = DateTime.Now;
 
-        if (_game != null) _game.UpdateClients += HandleUpdateClients;
+        if (_game == null) return;
+
+        _game.Status.Created = DateTime.Now;
+        _game.UpdateClients += HandleUpdateClients;
     }
 
     private async void HandleUpdateClients(object sender, EventArgs e)
     {
         await InvokeAsync(() => StateHasChanged());
+
+        if (_game == null) return;
+        var players = await MongoRepository.ReadAllAsync();
+        if (players.Find(p => p.Name == "Bot") == null)
+            await MongoRepository.CreateAsync(new Player() { Name = "Bot", Points = 0 });
+        var botId = (await MongoRepository.ReadAsync(p => p.Name == "Bot"))[0].Id;
+        var player = await MongoRepository.ReadAsync(_playerGuid);
+        if (_game.PlayerTwo != botId || botCircleOne != null || botCircleTwo != null || player == null) return;
+        _game.Status.Created = DateTime.Now;
+        botCircleOne = new Timer(BotCircleOne, null, 3500, (int)Math.Clamp(Math.Round(2000 / Math.Pow(player.Points, 0.02)), 1000, 2000));
+        botCircleTwo = new Timer(BotCircleTwo, null, 3500, (int)Math.Clamp(Math.Round(1000 / Math.Pow(player.Points, 0.02)), 200, 1000));
     }
 
     private async Task ClickCircleOne()
@@ -104,13 +120,20 @@
         if (_game.PlayerOne == _playerGuid)
         {
             _game.Status.PlayerOneCircleSize = Math.Max((int)Math.Floor(_game.Status.PlayerOneCircleSize / 1.1), 2);
-            if (_game.Status.PlayerOneCircleSize <= 2)
+            if (_game.Status is { PlayerOneCircleSize: <= 2, PlayerOneWon: null })
             {
                 _game.Status.PlayerOneWon = true;
+
                 var player = await MongoRepository.ReadAsync(_game.PlayerOne);
                 if (player == null) return;
-                player.Points += (int)Math.Min(Math.Round(1000000 / _game.Status.PlayerTwoCircleSize / (player.Points == 0 ? 100 : player.Points)), 1000);
+                player.Points += (int)Math.Min(Math.Round(1000000 / _game.Status.PlayerTwoCircleSize / (player.Points == 0 ? 100 : player.Points)), 999);
                 await MongoRepository.UpdateAsync(player.Id, player);
+
+                var playerOther = await MongoRepository.ReadAsync(_game.PlayerTwo);
+                if (playerOther == null) return;
+                playerOther.Points -= (int)Math.Min(Math.Round(_game.Status.PlayerTwoCircleSize * Math.Pow(player.Points == 0 ? 100 : player.Points, 0.25)), 1234);
+                if (playerOther.Points < 0) playerOther.Points = 0;
+                await MongoRepository.UpdateAsync(playerOther.Id, playerOther);
             }
         }
         else
@@ -130,14 +153,50 @@
         else
         {
             _game.Status.PlayerTwoCircleSize = Math.Max((int)Math.Floor(_game.Status.PlayerTwoCircleSize / 1.1), 2);
-            if (_game.Status.PlayerTwoCircleSize <= 2)
+            if (_game.Status is { PlayerTwoCircleSize: <= 2, PlayerOneWon: null })
             {
                 _game.Status.PlayerOneWon = false;
+
                 var player = await MongoRepository.ReadAsync(_game.PlayerTwo);
                 if (player == null) return;
-                player.Points += (int)Math.Min(Math.Round(1000000 / _game.Status.PlayerOneCircleSize / (player.Points == 0 ? 100 : player.Points)), 1000);
+                player.Points += (int)Math.Min(Math.Round(1000000 / _game.Status.PlayerOneCircleSize / (player.Points == 0 ? 100 : player.Points)), 999);
                 await MongoRepository.UpdateAsync(player.Id, player);
+
+                var playerOther = await MongoRepository.ReadAsync(_game.PlayerOne);
+                if (playerOther == null) return;
+                playerOther.Points -= (int)Math.Min(Math.Round(_game.Status.PlayerOneCircleSize * Math.Pow(player.Points == 0 ? 100 : player.Points, 0.25)), 1234);
+                if (playerOther.Points < 0) playerOther.Points = 0;
+                await MongoRepository.UpdateAsync(playerOther.Id, playerOther);
             }
+        }
+    }
+
+    private void BotCircleOne(object? state)
+    {
+        if (_game == null) return;
+
+        _game.Status.PlayerOneCircleSize = Math.Min((int)Math.Ceiling(_game.Status.PlayerOneCircleSize * 1.15), 40);
+    }
+
+    private async void BotCircleTwo(object? state)
+    {
+        if (_game == null) return;
+
+        _game.Status.PlayerTwoCircleSize = Math.Max((int)Math.Floor(_game.Status.PlayerTwoCircleSize / 1.1), 2);
+        if (_game.Status is { PlayerTwoCircleSize: <= 2, PlayerOneWon: null })
+        {
+            _game.Status.PlayerOneWon = false;
+
+            var player = await MongoRepository.ReadAsync(_game.PlayerTwo);
+            if (player == null) return;
+            player.Points += (int)Math.Min(Math.Round(1000000 / _game.Status.PlayerOneCircleSize / (player.Points == 0 ? 100 : player.Points)), 999);
+            await MongoRepository.UpdateAsync(player.Id, player);
+
+            var playerOther = await MongoRepository.ReadAsync(_game.PlayerOne);
+            if (playerOther == null) return;
+            playerOther.Points -= (int)Math.Min(Math.Round(_game.Status.PlayerOneCircleSize * Math.Pow(player.Points == 0 ? 100 : player.Points, 0.25)), 1234);
+            if (playerOther.Points < 0) playerOther.Points = 0;
+            await MongoRepository.UpdateAsync(playerOther.Id, playerOther);
         }
     }
 
@@ -148,6 +207,18 @@
         _game.Status.PlayerTwoCircleSize = 40;
         _game.Status.Created = DateTime.Now;
         _game.Status.PlayerOneWon = null;
+    }
+
+    public void Dispose()
+    {
+        botCircleOne?.Dispose();
+        botCircleTwo?.Dispose();
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (botCircleOne != null) await botCircleOne.DisposeAsync();
+        if (botCircleTwo != null) await botCircleTwo.DisposeAsync();
     }
 
 }

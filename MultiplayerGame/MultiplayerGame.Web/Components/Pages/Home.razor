@@ -20,7 +20,7 @@
 
 @code {
     private string name;
-    private bool IsValid => !string.IsNullOrEmpty(name);
+    private bool IsValid => !string.IsNullOrEmpty(name) && name != "Bot";
 
     async Task JoinGame()
     {

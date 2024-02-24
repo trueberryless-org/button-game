@@ -1,8 +1,4 @@
 is_global = true
-build_property.EnableAotAnalyzer = 
-build_property.EnableSingleFileAnalyzer = 
-build_property.EnableTrimAnalyzer = 
-build_property.IncludeAllContentForSelfExtract = 
 build_property.TargetFramework = net8.0
 build_property.TargetPlatformMinVersion = 
 build_property.UsingMicrosoftNETSdkWeb = true
@@ -24,14 +20,6 @@ build_property._RazorSourceGeneratorDebug =
 
 [D:/repos/school/202324_sew_5ahit_felixschneider/MultiplayerGame/MultiplayerGame/MultiplayerGame.Web/Components/App.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xBcHAucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/repos/school/202324_sew_5ahit_felixschneider/MultiplayerGame/MultiplayerGame/MultiplayerGame.Web/Components/Pages/Chat.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDaGF0LnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/repos/school/202324_sew_5ahit_felixschneider/MultiplayerGame/MultiplayerGame/MultiplayerGame.Web/Components/Pages/Counter.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDb3VudGVyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/repos/school/202324_sew_5ahit_felixschneider/MultiplayerGame/MultiplayerGame/MultiplayerGame.Web/Components/Pages/CurrentGames.razor]
@@ -60,10 +48,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/repos/school/202324_sew_5ahit_felixschneider/MultiplayerGame/MultiplayerGame/MultiplayerGame.Web/Components/Pages/SpectateGame.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTcGVjdGF0ZUdhbWUucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/repos/school/202324_sew_5ahit_felixschneider/MultiplayerGame/MultiplayerGame/MultiplayerGame.Web/Components/Pages/StartChat.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTdGFydENoYXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/repos/school/202324_sew_5ahit_felixschneider/MultiplayerGame/MultiplayerGame/MultiplayerGame.Web/Components/Pages/Weather.razor]

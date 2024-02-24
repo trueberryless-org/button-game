@@ -44,7 +44,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        Games = Matchmaking.Games.Where(g => g.Status.PlayerOneWon == null).ToList();
+        Games = Matchmaking.Games.Where(g => g.Status.PlayerOneWon == null).OrderByDescending(g => g.Status.Created).ToList();
     }
 
 }

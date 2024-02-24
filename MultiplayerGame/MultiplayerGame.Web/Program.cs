@@ -17,12 +17,11 @@ builder.Services.AddOutputCache();
 
 builder.Services.AddHttpClient<WeatherApiClient>(client => client.BaseAddress = new("http://apiservice"));
 
-builder.Services.AddSingleton<Matchmaking>();
-builder.Services.AddSingleton<MatchmakingChat>();
-
 builder.AddMongoDBClient("mongodb");
 
 builder.Services.AddScoped<IMongoRepository<Player>, MongoRepository<Player>>();
+
+builder.Services.AddSingleton<Matchmaking>();
 
 var app = builder.Build();
 

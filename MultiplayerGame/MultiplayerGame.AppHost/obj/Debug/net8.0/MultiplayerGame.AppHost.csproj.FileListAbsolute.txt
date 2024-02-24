@@ -126,3 +126,4 @@ D:\repos\school\202324_sew_5ahit_felixschneider\MultiplayerGame\MultiplayerGame\
 D:\repos\school\202324_sew_5ahit_felixschneider\MultiplayerGame\MultiplayerGame\MultiplayerGame.AppHost\obj\Debug\net8.0\MultiplayerGame.AppHost.pdb
 D:\repos\school\202324_sew_5ahit_felixschneider\MultiplayerGame\MultiplayerGame\MultiplayerGame.AppHost\obj\Debug\net8.0\MultiplayerGame.AppHost.genruntimeconfig.cache
 D:\repos\school\202324_sew_5ahit_felixschneider\MultiplayerGame\MultiplayerGame\MultiplayerGame.AppHost\obj\Debug\net8.0\ref\MultiplayerGame.AppHost.dll
+D:\repos\school\202324_sew_5ahit_felixschneider\MultiplayerGame\MultiplayerGame\MultiplayerGame.AppHost\bin\Debug\net8.0\manifest.json

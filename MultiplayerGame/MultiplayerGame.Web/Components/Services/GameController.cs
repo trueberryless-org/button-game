@@ -1,4 +1,7 @@
-﻿namespace MultiplayerGame.Web.Components.Services;
+﻿using MultiplayerGame.Web.Model;
+using MultiplayerGame.Web.Repositories;
+
+namespace MultiplayerGame.Web.Components.Services;
 
 public class GameController : EventArgs, IDisposable, IAsyncDisposable
 {
