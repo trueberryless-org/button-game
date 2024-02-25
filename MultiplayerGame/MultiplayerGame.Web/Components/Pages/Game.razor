@@ -110,8 +110,8 @@
         var player = await MongoRepository.ReadAsync(_playerGuid);
         if (_game.PlayerTwo != botId || botCircleOne != null || botCircleTwo != null || player == null) return;
         _game.Status.Created = DateTime.Now;
-        botCircleOne = new Timer(BotCircleOne, null, 3500, (int)Math.Clamp(Math.Round(2000 / Math.Pow(player.Points, 0.02)), 1000, 2000));
-        botCircleTwo = new Timer(BotCircleTwo, null, 3500, (int)Math.Clamp(Math.Round(1000 / Math.Pow(player.Points, 0.02)), 200, 1000));
+        botCircleOne = new Timer(BotCircleOne, null, 3200, (int)Math.Clamp(Math.Round(1700 / Math.Pow(player.Points, 0.02)), 1000, 1700));
+        botCircleTwo = new Timer(BotCircleTwo, null, 3200, (int)Math.Clamp(Math.Round(600 / Math.Pow(player.Points, 0.05)), 200, 600));
     }
 
     private async Task ClickCircleOne()
