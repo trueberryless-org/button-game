@@ -44,19 +44,20 @@
                     </div>
                 </div>
             }
-            else if (_game.Status.PlayerOneWon == true)
+            else
             {
-                <p>Player One Won!</p>
+                switch (_game.Status.PlayerOneWon)
+                {
+                    case true:
+                        <p>Player One Won!</p>
+                        break;
+                    case false:
+                        <p>Player Two Won!</p>
+                        break;
+                }
 
                 <button @onclick="Revanche">Revanche</button>
             }
-            else if (_game.Status.PlayerOneWon == false)
-            {
-                <p>Player Two Won!</p>
-
-                <button @onclick="Revanche">Revanche</button>
-            }
-
 
             @if (_game.Status.Created.AddSeconds(3) > DateTime.Now)
             {
@@ -102,8 +103,8 @@
         await InvokeAsync(() => StateHasChanged());
 
         if (_game == null) return;
-        var players = await MongoRepository.ReadAllAsync();
-        if (players.Find(p => p.Name == "Bot") == null)
+        var scores = await MongoRepository.ReadAllAsync();
+        if (scores.Find(p => p.Name == "Bot") == null)
             await MongoRepository.CreateAsync(new Player() { Name = "Bot", Points = 0 });
         var botId = (await MongoRepository.ReadAsync(p => p.Name == "Bot"))[0].Id;
         var player = await MongoRepository.ReadAsync(_playerGuid);
@@ -174,6 +175,7 @@
     private void BotCircleOne(object? state)
     {
         if (_game == null) return;
+        if (_game.Status.Created.AddSeconds(3) > DateTime.Now) return;
 
         _game.Status.PlayerOneCircleSize = Math.Min((int)Math.Ceiling(_game.Status.PlayerOneCircleSize * 1.15), 40);
     }
@@ -181,6 +183,7 @@
     private async void BotCircleTwo(object? state)
     {
         if (_game == null) return;
+        if (_game.Status.Created.AddSeconds(3) > DateTime.Now) return;
 
         _game.Status.PlayerTwoCircleSize = Math.Max((int)Math.Floor(_game.Status.PlayerTwoCircleSize / 1.1), 2);
         if (_game.Status is { PlayerTwoCircleSize: <= 2, PlayerOneWon: null })
@@ -207,6 +210,10 @@
         _game.Status.PlayerTwoCircleSize = 40;
         _game.Status.Created = DateTime.Now;
         _game.Status.PlayerOneWon = null;
+        botCircleOne?.Dispose();
+        botCircleTwo?.Dispose();
+        botCircleOne = null;
+        botCircleTwo = null;
     }
 
     public void Dispose()
@@ -222,3 +229,28 @@
     }
 
 }
+
+<style>
+#scores {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#scores td, #scores th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#scores tr:nth-child(even){background-color: #f2f2f2;}
+
+#scores tr:hover {background-color: #ddd;}
+
+#scores th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
+</style>
